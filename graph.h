@@ -15,8 +15,8 @@ struct Graph{
  */
 Graph loadGraph(char* filename){
     ifstream file (filename);
-
     Graph graph;
+
     file>>graph.vertexCount;
 
     graph.adjacencyMatrix=new int*[graph.vertexCount];
@@ -31,7 +31,6 @@ Graph loadGraph(char* filename){
         }
         graph.adjacencyMatrix[row_counter][col_counter++]=buf;
     }
-
     return graph;
 }
 
