@@ -31,43 +31,36 @@ int main(int argc, char** argv){
     /**
      * Enumerate permutations and permutate matrices
      */
-    int* permutation = new int[n];
     int* idx = new int[n];
-    int swap = 0;
+    int swap,_ = 0;
     int* swap_ptr = NULL;
-    for(int i = 0; i<n; i++){
-        permutation[i]=i;
+    for(int i = 0; i<n; i++)
         idx[i]=0;
-    }
     for(int i=0; i<n;) {
         if (idx[i] < i) {
             swap = i % 2 * idx[i];
-            _ = permutation[swap];
-            permutation[swap] = permutation[i];
-            permutation[i] = _;
+            int a = swap;
+            int b = i;
             idx[i]++;
             i = 1;
+
             /**
              * Permutate matrix a
              */
-            for(int k=0; k<n; k++){
-                int a = k;
-                int b = permutation[k];
-                /**
-                 * Swap rows
-                 */
-                swap_ptr = graph_a.adjacencyMatrix[a];
-                graph_a.adjacencyMatrix[a] = graph_a.adjacencyMatrix[b];
-                graph_a.adjacencyMatrix[b] = swap_ptr;
-                /**
-                 * Swap collumns
-                 */
-                for(int j=0; j<n; i++){
-                    if(graph_a.adjacencyMatrix[j][a] ^ graph_a.adjacencyMatrix[j][b]){
-                        swap=graph_a.adjacencyMatrix[j][a];
-                        graph_a.adjacencyMatrix[j][a]=graph_a.adjacencyMatrix[j][b];
-                        graph_a.adjacencyMatrix[j][b]=swap;
-                    }
+            /**
+             * Swap rows
+             */
+            swap_ptr = graph_a.adjacencyMatrix[a];
+            graph_a.adjacencyMatrix[a] = graph_a.adjacencyMatrix[b];
+            graph_a.adjacencyMatrix[b] = swap_ptr;
+            /**
+             * Swap collumns
+             */
+            for(int j=0; j<n; j++){
+                if(graph_a.adjacencyMatrix[j][a] ^ graph_a.adjacencyMatrix[j][b]){
+                    swap=graph_a.adjacencyMatrix[j][a];
+                    graph_a.adjacencyMatrix[j][a]=graph_a.adjacencyMatrix[j][b];
+                    graph_a.adjacencyMatrix[j][b]=swap;
                 }
             }
             /**
@@ -76,7 +69,7 @@ int main(int argc, char** argv){
             bool equal = true;
             for(int k=0;k<n && equal;k++)
                 for(int j=0;j<n && equal;j++)
-                    if(graph_a.adjacencyMatrix[k][j] ^ graph_a.adjacencyMatrix[k][j])//then not equal
+                    if(graph_a.adjacencyMatrix[k][j] ^ graph_b.adjacencyMatrix[k][j])//then not equal
                         equal=false;
             /**
              * If equal===true then graph a and graph b isomorphic

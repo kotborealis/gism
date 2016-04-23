@@ -7,7 +7,7 @@ TARGET := ./ism
 SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -std=c++11
+CFLAGS := -g -std=c++11 -Ofast -floop-parallelize-all -floop-nest-optimize -ftree-loop-if-convert -ftree-parallelize-loops=4
 LIB :=
 INC := -I$(SRCDIR) -I$(SRCDIR)/$(LIBDIR)
 
