@@ -7,13 +7,14 @@ TARGET := ./ism
 SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name '*.$(SRCEXT)')
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -std=c++11 -Ofast -floop-parallelize-all -floop-nest-optimize -ftree-loop-if-convert -ftree-parallelize-loops=4 -march=native
+CFLAGS := -pg -g -std=c++11 
+CFLAGS += -Ofast -floop-parallelize-all -floop-nest-optimize -ftree-loop-if-convert -ftree-parallelize-loops=4 -march=native
 LIB :=
 INC := -I$(SRCDIR) -I$(SRCDIR)/$(LIBDIR)
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
+	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB) $(CFLAGS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)/$(LIBDIR)
@@ -22,5 +23,4 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 clean:
 	@echo " Cleaning...";
 	@echo " $(RM) -r $(BUILDDIR)/*.o $(TARGET)"; $(RM) -r $(BUILDDIR)/*.o $(TARGET)
-
 .PHONY: clean

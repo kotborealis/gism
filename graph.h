@@ -8,4 +8,4 @@ struct Graph{
     int vertexCount;
     int** adjacencyMatrix;
 };
-Graph loadGraph(char* filename);
+Graph loadGraph(int n);

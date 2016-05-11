@@ -9,24 +9,18 @@ using namespace std;
 int main(int argc, char** argv){
     clock_t tStart = clock();//measure program execution time
     double tEnd;//measure program execution time
-    if(argc<3){
+    /*if(argc<3){
         cout<<"Expected 2 args, got only "<<argc<<"\n";
         return 1;
-    }
-    Graph graph_a = loadGraph(argv[1]);
-    Graph graph_b = loadGraph(argv[2]);
-    int n = graph_a.vertexCount;
+    }*/
+    int n;
+    cin>>n;
+    Graph graph_a = loadGraph(n);
+    Graph graph_b = loadGraph(n);
+    
     /**
      * TODO: Invariants
      */
-
-    /**
-     * Invariant: vertextCount
-     */
-    if(graph_a.vertexCount!=graph_a.vertexCount){
-        cout<<"No ism [i1]\n";
-        return 0;
-    }
 
     /**
      * Enumerate permutations and permutate matrices
