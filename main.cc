@@ -42,33 +42,6 @@ int ConnectedComponents(Graph g, int n){
     return cc;
 }
 
-int Diametr(Graph g, int n){
-    vector<int> traces(n*n,0);
-    for(int i=0;i<n;i++){
-        vector<int> used(n,false);
-        vector<int> m(n,0);
-        int c_node;
-        queue<int> q;
-        q.push(i);
-        m[i]=1;
-        while(!q.empty()){
-            c_node = q.front();q.pop();
-
-            if(used[c_node])continue;
-            used[c_node]=true;
-
-            for(int j=0;j<n;j++)
-                if(g.adjacencyMatrix[c_node][j]){
-                    q.push(j);
-                    m[j]=m[c_node]+1;
-                }
-
-            traces.push_back(m[c_node]);
-        }
-    }
-    return *max_element(traces.begin(),traces.end());
-}
-
 int main(int argc, char** argv){
     clock_t tStart = clock();
     int n;
