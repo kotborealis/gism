@@ -41,11 +41,376 @@ int ConnectedComponents(Graph g, int n){
     }
     return cc;
 }
+void SwapColsUnroll1(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+}
+void SwapColsUnroll2(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+}
+void SwapColsUnroll3(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+}
+void SwapColsUnroll4(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+}
+void SwapColsUnroll5(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+}
+void SwapColsUnroll6(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+}
+void SwapColsUnroll7(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+}
+void SwapColsUnroll8(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+    swap=m[7][a];
+    m[7][a]=m[7][b];
+    m[7][b]=swap;
+}
+void SwapColsUnroll9(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+    swap=m[7][a];
+    m[7][a]=m[7][b];
+    m[7][b]=swap;
+    swap=m[8][a];
+    m[8][a]=m[8][b];
+    m[8][b]=swap;
+}
+void SwapColsUnroll10(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+    swap=m[7][a];
+    m[7][a]=m[7][b];
+    m[7][b]=swap;
+    swap=m[8][a];
+    m[8][a]=m[8][b];
+    m[8][b]=swap;
+    swap=m[9][a];
+    m[9][a]=m[9][b];
+    m[9][b]=swap;
+}
+void SwapColsUnroll11(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+    swap=m[7][a];
+    m[7][a]=m[7][b];
+    m[7][b]=swap;
+    swap=m[8][a];
+    m[8][a]=m[8][b];
+    m[8][b]=swap;
+    swap=m[9][a];
+    m[9][a]=m[9][b];
+    m[9][b]=swap;
+    swap=m[10][a];
+    m[10][a]=m[10][b];
+    m[10][b]=swap;
+}
+void SwapColsUnroll12(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+    swap=m[7][a];
+    m[7][a]=m[7][b];
+    m[7][b]=swap;
+    swap=m[8][a];
+    m[8][a]=m[8][b];
+    m[8][b]=swap;
+    swap=m[9][a];
+    m[9][a]=m[9][b];
+    m[9][b]=swap;
+    swap=m[10][a];
+    m[10][a]=m[10][b];
+    m[10][b]=swap;
+    swap=m[11][a];
+    m[11][a]=m[11][b];
+    m[11][b]=swap;
+}
+void SwapColsUnroll13(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+    swap=m[7][a];
+    m[7][a]=m[7][b];
+    m[7][b]=swap;
+    swap=m[8][a];
+    m[8][a]=m[8][b];
+    m[8][b]=swap;
+    swap=m[9][a];
+    m[9][a]=m[9][b];
+    m[9][b]=swap;
+    swap=m[10][a];
+    m[10][a]=m[10][b];
+    m[10][b]=swap;
+    swap=m[11][a];
+    m[11][a]=m[11][b];
+    m[11][b]=swap;
+    swap=m[12][a];
+    m[12][a]=m[12][b];
+    m[12][b]=swap;
+}
+void SwapColsUnrollN(int** m, int n, int a, int b){
+    int swap=m[0][a];
+    m[0][a]=m[0][b];
+    m[0][b]=swap;
+    swap=m[1][a];
+    m[1][a]=m[1][b];
+    m[1][b]=swap;
+    swap=m[2][a];
+    m[2][a]=m[2][b];
+    m[2][b]=swap;
+    swap=m[3][a];
+    m[3][a]=m[3][b];
+    m[3][b]=swap;
+    swap=m[4][a];
+    m[4][a]=m[4][b];
+    m[4][b]=swap;
+    swap=m[5][a];
+    m[5][a]=m[5][b];
+    m[5][b]=swap;
+    swap=m[6][a];
+    m[6][a]=m[6][b];
+    m[6][b]=swap;
+    swap=m[7][a];
+    m[7][a]=m[7][b];
+    m[7][b]=swap;
+    swap=m[8][a];
+    m[8][a]=m[8][b];
+    m[8][b]=swap;
+    swap=m[9][a];
+    m[9][a]=m[9][b];
+    m[9][b]=swap;
+    swap=m[10][a];
+    m[10][a]=m[10][b];
+    m[10][b]=swap;
+    swap=m[11][a];
+    m[11][a]=m[11][b];
+    m[11][b]=swap;
+    swap=m[12][a];
+    m[12][a]=m[12][b];
+    m[12][b]=swap;
+
+    for(int i=13;i<n;i++){
+        swap=m[i][a];
+        m[i][a]=m[i][b];
+        m[i][b]=swap;
+    }
+}
+
+typedef void (*SwapColsUnrollType) (int** m, int n, int a, int b);
+SwapColsUnrollType SwapColsUnroll[]={
+    SwapColsUnroll1,
+    SwapColsUnroll2,
+    SwapColsUnroll3,
+    SwapColsUnroll4,
+    SwapColsUnroll5,
+    SwapColsUnroll6,
+    SwapColsUnroll7,
+    SwapColsUnroll8,
+    SwapColsUnroll9,
+    SwapColsUnroll10,
+    SwapColsUnroll11,
+    SwapColsUnroll12,
+    SwapColsUnroll13,
+    SwapColsUnrollN
+};
 
 int main(int argc, char** argv){
     clock_t tStart = clock();
-    int n;
+    int n,_n_call;
     cin>>n;
+    _n_call=n-1>13?13:n-1;
     Graph graph_a = loadGraph(n);
     Graph graph_b = loadGraph(n);
 
@@ -117,11 +482,12 @@ int main(int argc, char** argv){
             /**
              * Swap collumns
              */
-            for(int j=0; j<n; j++){
+            /*for(int j=0; j<n; j++){
                 swap=graph_a.adjacencyMatrix[j][a];
                 graph_a.adjacencyMatrix[j][a]=graph_a.adjacencyMatrix[j][b];
                 graph_a.adjacencyMatrix[j][b]=swap;
-            }
+            }*/
+            SwapColsUnroll[_n_call](graph_a.adjacencyMatrix,n,a,b);
             /**
              * Compare adjacency matrix of graph a and graph b
              */
