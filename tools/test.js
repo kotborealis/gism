@@ -5,17 +5,24 @@ var tests_in = [];
 var tests_out = {};
 var all_passed = false;
 
-fs.readdirSync("./tests/").map(file=>{
+if(!process.argv[2] || !process.argv[3]){
+    console.log("Usage: node test.js bin_file test_dir");
+}
+
+var bin = process.argv[2];
+var test_dir = process.argv[3];
+
+fs.readdirSync(test_dir).map(file=>{
     if(/^.*\.in$/.test(file))tests_in.push(file);
     else{
         var m = file.match(/^(.*)\.out$/);
         if(m!==null){
-            tests_out[m[1]+".in"]=fs.readFileSync("./tests/"+file).toString().replace("\n","");
+            tests_out[m[1]+".in"]=fs.readFileSync(test_dir+file).toString().replace("\n","");
         }
     }
 });
 
-tests_in.sort((a,b)=>a.slice(4,-3)*1>b.slice(4,-3)*1).map(test=>exec('./ism < tests/'+test,(code,stdout,stderr)=>{
+tests_in.sort((a,b)=>a.slice(4,-3)*1>b.slice(4,-3)*1).map(test=>exec(`${bin} < ${test_dir}`+test,(code,stdout,stderr)=>{
     var out = stdout.split("\n").slice(0,-1);
     var r = {
         name:test,
