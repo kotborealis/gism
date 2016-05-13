@@ -44,30 +44,7 @@ int ConnectedComponents(Graph g, int n){
     return cc;
 }
 
-vector<int> PathsToAllNodes(Graph g, int n){
-    vector<int> paths(n*n,-1);
-    for(int i=0;i<n;i++){
-        vector<int> used(n,false);
-        vector<int> m(n,0);
-        queue<int> q;
-        int c_node;
-        q.push(i);
-        while(!q.empty()){
-            c_node = q.front();q.pop();
-            used[c_node]=true;
-            paths[i*n+c_node]=m[c_node];
 
-            for(int j=0;j<n;j++){
-                if(used[j] || !g.adjacencyMatrix[c_node][j])
-                    continue;
-                q.push(j);
-                m[j]=m[c_node]+1;
-            }
-        }
-    }
-    sort(paths.begin(),paths.end());
-    return paths;
-}
 
 int main(int argc, char** argv){
     clock_t tStart = clock();
@@ -88,11 +65,9 @@ int main(int argc, char** argv){
         vector<int> b_passport(n);
         for(int x=0;x<n;x++)
             for(int y=0;y<n;y++){
-                    /** Edges count **/
                     a_edges+=graph_a.adjacencyMatrix[x][y];
                     b_edges+=graph_b.adjacencyMatrix[x][y];
 
-                    /** Passport **/
                     a_passport[x]+=graph_a.adjacencyMatrix[x][y];
                     b_passport[x]+=graph_b.adjacencyMatrix[x][y];
             }
@@ -116,14 +91,55 @@ int main(int argc, char** argv){
             _NFOUND;
         }
 
-        vector<int> a_p = PathsToAllNodes(graph_a, n);
-        vector<int> b_p = PathsToAllNodes(graph_b, n);
-        for(int i=0;i<n;i++)
-            if(a_p[i]!=b_p[i]){
-                cout<<"PATHS\n";
-                _TIME;
-                _NFOUND;
+        int a_p=0;
+        int b_p=0;
+        bool* used_a = new bool[n];
+        bool* used_b = new bool[n];
+        int* m_a = new int[n];
+        int* m_b = new int[n];
+        queue<int> q_a;
+        queue<int> q_b;
+        int c_node_a;
+        int c_node_b;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                used_a[j]=false;
+                used_b[j]=false;
+                m_a[j]=0;
+                m_b[j]=0;
             }
+            q_a.push(i);
+            q_b.push(i);
+            while(!q_a.empty()){
+                c_node_a = q_a.front();q_a.pop();
+                used_a[c_node_a]=true;
+                if(m_a[c_node_a]>a_p)a_p=m_a[c_node_a];
+
+                for(int j=0;j<n;j++){
+                    if(used_a[j] || !graph_a.adjacencyMatrix[c_node_a][j])
+                        continue;
+                    q_a.push(j);
+                    m_a[j]=m_a[c_node_a]+1;
+                }
+            }
+            while(!q_b.empty()){
+                c_node_b = q_b.front();q_b.pop();
+                used_b[c_node_b]=true;
+                if(m_b[c_node_b]>b_p)b_p=m_b[c_node_b];
+
+                for(int j=0;j<n;j++){
+                    if(used_b[j] || !graph_b.adjacencyMatrix[c_node_b][j])
+                        continue;
+                    q_b.push(j);
+                    m_b[j]=m_b[c_node_b]+1;
+                }
+            }
+        }
+        free(used_a);free(used_b);free(m_a);free(m_b);
+        /*if(a_p!=b_p){
+            _TIME;
+            _NFOUND;
+        }
     //}
 
     /**
