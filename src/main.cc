@@ -99,7 +99,7 @@ int main(int argc, char** argv){
      */
     int* swap_ptr = NULL;
     int a,b;
-    for(int i = 0; i<n; i++)
+    for(int i = 0; i<_MAX_NODES; i++)
         idx[i]=0;
     for(int i=0; i<n;) {
         if (idx[i] < i) {
