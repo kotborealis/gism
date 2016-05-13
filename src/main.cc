@@ -97,18 +97,14 @@ int main(int argc, char** argv){
     /**
      * Enumerate permutations and permutate matrices
      */
-    int swap = 0;
     int* swap_ptr = NULL;
+    int a,b;
     for(int i = 0; i<n; i++)
         idx[i]=0;
     for(int i=0; i<n;) {
         if (idx[i] < i) {
-            swap = i % 2 * idx[i];
-            int a = swap;
-            int b = i;
+            a = i % 2 * idx[i];
             idx[i]++;
-            i = 1;
-
             /**
              * Permutate matrix a
              */
@@ -116,12 +112,12 @@ int main(int argc, char** argv){
              * Swap rows
              */
             swap_ptr = graph_a.adjacencyMatrix[a];
-            graph_a.adjacencyMatrix[a] = graph_a.adjacencyMatrix[b];
-            graph_a.adjacencyMatrix[b] = swap_ptr;
+            graph_a.adjacencyMatrix[a] = graph_a.adjacencyMatrix[i];
+            graph_a.adjacencyMatrix[i] = swap_ptr;
             /**
              * Swap collumns
              */
-            SwapColsUnroll[_n_call](graph_a.adjacencyMatrix,n,a,b);
+            SwapColsUnroll[_n_call](graph_a.adjacencyMatrix,n,a,i);
             /**
              * Compare adjacency matrix of graph a and graph b
              */
@@ -133,6 +129,7 @@ int main(int argc, char** argv){
                 _TIME;
                 _FOUND;
             }
+            i = 1;
         }
         else
             idx[i++] = 0;
