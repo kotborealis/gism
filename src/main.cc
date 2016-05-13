@@ -14,6 +14,8 @@
 #define _FOUND cout<<"YES\n";return 0;
 #define _NFOUND cout<<"NO\n";return 0;
 
+#define _MAX_NODES 16
+
 using namespace std;
 
 int ConnectedComponents(Graph g, int n){
@@ -44,7 +46,7 @@ int ConnectedComponents(Graph g, int n){
     return cc;
 }
 
-
+int idx[_MAX_NODES];
 
 int main(int argc, char** argv){
     clock_t tStart = clock();
@@ -54,7 +56,7 @@ int main(int argc, char** argv){
     Graph graph_a = loadGraph(n);
     Graph graph_b = loadGraph(n);
 
-    //if(n>10){
+    if(n>10){
         /**
          * TODO: Invariants
          */
@@ -90,63 +92,12 @@ int main(int argc, char** argv){
             _TIME;
             _NFOUND;
         }
-
-        int a_p=0;
-        int b_p=0;
-        bool* used_a = new bool[n];
-        bool* used_b = new bool[n];
-        int* m_a = new int[n];
-        int* m_b = new int[n];
-        queue<int> q_a;
-        queue<int> q_b;
-        int c_node_a;
-        int c_node_b;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                used_a[j]=false;
-                used_b[j]=false;
-                m_a[j]=0;
-                m_b[j]=0;
-            }
-            q_a.push(i);
-            q_b.push(i);
-            while(!q_a.empty()){
-                c_node_a = q_a.front();q_a.pop();
-                used_a[c_node_a]=true;
-                if(m_a[c_node_a]>a_p)a_p=m_a[c_node_a];
-
-                for(int j=0;j<n;j++){
-                    if(used_a[j] || !graph_a.adjacencyMatrix[c_node_a][j])
-                        continue;
-                    q_a.push(j);
-                    m_a[j]=m_a[c_node_a]+1;
-                }
-            }
-            while(!q_b.empty()){
-                c_node_b = q_b.front();q_b.pop();
-                used_b[c_node_b]=true;
-                if(m_b[c_node_b]>b_p)b_p=m_b[c_node_b];
-
-                for(int j=0;j<n;j++){
-                    if(used_b[j] || !graph_b.adjacencyMatrix[c_node_b][j])
-                        continue;
-                    q_b.push(j);
-                    m_b[j]=m_b[c_node_b]+1;
-                }
-            }
-        }
-        free(used_a);free(used_b);free(m_a);free(m_b);
-        /*if(a_p!=b_p){
-            _TIME;
-            _NFOUND;
-        }
-    //}
+    }
 
     /**
      * Enumerate permutations and permutate matrices
      */
-    int* idx = new int[n];
-    int swap,_ = 0;
+    int swap = 0;
     int* swap_ptr = NULL;
     for(int i = 0; i<n; i++)
         idx[i]=0;
@@ -181,7 +132,6 @@ int main(int argc, char** argv){
             if(equal){
                 _TIME;
                 _FOUND;
-                return 1;
             }
         }
         else
