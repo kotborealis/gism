@@ -44,6 +44,31 @@ int ConnectedComponents(Graph g, int n){
     return cc;
 }
 
+vector<int> PathsToAllNodes(Graph g, int n){
+    vector<int> paths(n*n,-1);
+    for(int i=0;i<n;i++){
+        vector<int> used(n,false);
+        vector<int> m(n,0);
+        queue<int> q;
+        int c_node;
+        q.push(i);
+        while(!q.empty()){
+            c_node = q.front();q.pop();
+            used[c_node]=true;
+            paths[i*n+c_node]=m[c_node];
+
+            for(int j=0;j<n;j++){
+                if(used[j] || !g.adjacencyMatrix[c_node][j])
+                    continue;
+                q.push(j);
+                m[j]=m[c_node]+1;
+            }
+        }
+    }
+    sort(paths.begin(),paths.end());
+    return paths;
+}
+
 int main(int argc, char** argv){
     clock_t tStart = clock();
     int n,_n_call;
@@ -52,7 +77,7 @@ int main(int argc, char** argv){
     Graph graph_a = loadGraph(n);
     Graph graph_b = loadGraph(n);
 
-    if(n>10){
+    //if(n>10){
         /**
          * TODO: Invariants
          */
@@ -90,7 +115,16 @@ int main(int argc, char** argv){
             _TIME;
             _NFOUND;
         }
-    }
+
+        vector<int> a_p = PathsToAllNodes(graph_a, n);
+        vector<int> b_p = PathsToAllNodes(graph_b, n);
+        for(int i=0;i<n;i++)
+            if(a_p[i]!=b_p[i]){
+                cout<<"PATHS\n";
+                _TIME;
+                _NFOUND;
+            }
+    //}
 
     /**
      * Enumerate permutations and permutate matrices

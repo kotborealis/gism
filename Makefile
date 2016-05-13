@@ -12,11 +12,11 @@ INC := -I$(SRCDIR)
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."
-	@$(CC) $^ -o $(TARGET) $(LIB) $(CFLAGS)
+	$(CC) $^ -o $(TARGET) $(LIB) $(CFLAGS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)/$(LIBDIR)
-	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:
 	@echo " Cleaning...";
