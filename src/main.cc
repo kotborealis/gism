@@ -92,44 +92,43 @@ int main(int argc, char** argv){
             _TIME;
             _NFOUND;
         }
-    }
-
-    int a_d=0, b_d=0;
-    int* m_a = new int[n];
-    int* m_b = new int[n];
-    queue<int> q_a, q_b;
-    int c_node;
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            m_a[j]=0;
-            m_b[j]=0;
-        }
-        q_a.push(i);
-        while(!q_a.empty()){
-            c_node = q_a.front();q_a.pop();
-            if(m_a[c_node]>a_d)a_d = m_a[c_node];
+        int a_d=0, b_d=0;
+        int* m_a = new int[n];
+        int* m_b = new int[n];
+        queue<int> q_a, q_b;
+        int c_node;
+        for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(!m_a[j] && graph_a.adjacencyMatrix[c_node][j]){
-                    q_a.push(j);
-                    m_a[j]=m_a[c_node]+1;
+                m_a[j]=0;
+                m_b[j]=0;
+            }
+            q_a.push(i);
+            while(!q_a.empty()){
+                c_node = q_a.front();q_a.pop();
+                if(m_a[c_node]>a_d)a_d = m_a[c_node];
+                for(int j=0;j<n;j++){
+                    if(!m_a[j] && graph_a.adjacencyMatrix[c_node][j]){
+                        q_a.push(j);
+                        m_a[j]=m_a[c_node]+1;
+                    }
+                }
+            }
+            q_b.push(i);
+            while(!q_b.empty()){
+                c_node = q_b.front();q_b.pop();
+                if(m_b[c_node]>b_d)b_d = m_b[c_node];
+                for(int j=0;j<n;j++){
+                    if(!m_b[j] && graph_b.adjacencyMatrix[c_node][j]){
+                        q_b.push(j);
+                        m_b[j]=m_b[c_node]+1;
+                    }
                 }
             }
         }
-        q_b.push(i);
-        while(!q_b.empty()){
-            c_node = q_b.front();q_b.pop();
-            if(m_b[c_node]>b_d)b_d = m_b[c_node];
-            for(int j=0;j<n;j++){
-                if(!m_b[j] && graph_b.adjacencyMatrix[c_node][j]){
-                    q_b.push(j);
-                    m_b[j]=m_b[c_node]+1;
-                }
-            }
+        if(a_d!=b_d){
+            _TIME;
+            _NFOUND;
         }
-    }
-    if(a_d!=b_d){
-        _TIME;
-        _NFOUND;
     }
 
     /**
