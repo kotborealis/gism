@@ -3,13 +3,13 @@
 #include <time.h>
 #include <cstdint>
 #include <queue>
-#include <vector>
 #include <algorithm>
 #include "graph.h"
 #include "SwapColsUnroll.h"
 #include "equalMatrixUnroll.h"
 
 #define _TIME_DISABLED false
+#define _ENABLE_INVARIANTS_ON 10
 #define _TIME if(!_TIME_DISABLED){cout<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"ms\n";}
 #define _FOUND cout<<"YES\n";return 0;
 #define _NFOUND cout<<"NO\n";return 0;
@@ -19,9 +19,11 @@
 using namespace std;
 
 int ConnectedComponents(Graph g, int n){
-    vector<int> used(n,false);
+    bool* used = new bool[n];
     int c_node;
     int cc=1;
+    for(int i=0;i<n;i++)
+      used[i]=false;
     for(int i=0;i<n;i++){
         if(used[i])
             continue;
@@ -56,16 +58,14 @@ int main(int argc, char** argv){
     Graph graph_a = loadGraph(n);
     Graph graph_b = loadGraph(n);
 
-    if(n>10){
-        /**
-         * TODO: Invariants
-         */
-
+    if(n>=_ENABLE_INVARIANTS_ON){
         /** Edges and passport **/
         int a_edges=0,b_edges=0;
-        vector<int> a_passport(n);
-        vector<int> b_passport(n);
-        for(int x=0;x<n;x++)
+        int* a_passport = new int[n];
+        int* b_passport = new int[n];
+        for(int x=0;x<n;x++){
+            a_passport[x]=0;
+            b_passport[x]=0;
             for(int y=0;y<n;y++){
                     a_edges+=graph_a.adjacencyMatrix[x][y];
                     b_edges+=graph_b.adjacencyMatrix[x][y];
@@ -73,17 +73,72 @@ int main(int argc, char** argv){
                     a_passport[x]+=graph_a.adjacencyMatrix[x][y];
                     b_passport[x]+=graph_b.adjacencyMatrix[x][y];
             }
+        }
+        /** If graphs have diffrent number of edges **/
         if(a_edges!=b_edges){
             _TIME;
             _NFOUND;
         }
-        sort(a_passport.begin(),a_passport.end());
-        sort(b_passport.begin(),b_passport.end());
+        sort(a_passport,a_passport+n);
+        sort(b_passport,b_passport+n);
+        /** If their passports are not equal **/
         for(int i=0;i<n;i++)
             if(a_passport[i]!=b_passport[i]){
                 _TIME;
                 _NFOUND;
             }
+        /**/
+
+        /** Paths and cycles **/
+        int* m_a = new int[n];
+        int* m_b = new int[n];
+        int* p_a = new int[n*n];
+        int* p_b = new int[n*n];
+        queue<int> q;
+        int c_node;
+        bool cycles_a, cycles_b;
+        for(int i=0;i<n;i++){
+            m_a[i]=0;
+            m_b[i]=0;
+            q.push(i);
+            while(!q.empty()){
+                c_node = q.front();q.pop();
+                p_a[i*n+c_node]=m_a[c_node];
+                for(int j=0;j<n;j++){
+                    if(!m_a[j] && graph_a.adjacencyMatrix[c_node][j]){
+                        q.push(j);
+                        m_a[j]=m_a[c_node]+1;
+                    }
+                    cycles_a=m_a[j]>=m_a[c_node];
+                }
+            }
+            q.push(i);
+            while(!q.empty()){
+                c_node = q.front();q.pop();
+                p_b[i*n+c_node]=m_b[c_node];
+                for(int j=0;j<n;j++){
+                    if(!m_b[j] && graph_b.adjacencyMatrix[c_node][j]){
+                        q.push(j);
+                        m_b[j]=m_b[c_node]+1;
+                    }
+                    cycles_b=m_b[j]>=m_b[c_node];
+                }
+            }
+        }
+        /** if one have cycle and other dont **/
+        if(cycles_b!=cycles_a){
+          _TIME;
+          _NFOUND;
+        }
+        /** check if sorted path all->all equals **/
+        sort(p_a,p_a+n*n);
+        sort(p_b,p_b+n*n);
+        for(int i=0;i<n;i++)
+          if(p_a[i]!=p_b[i]){
+            _TIME;
+            _NFOUND;
+          }
+        /**/
 
         /** Connected components **/
         int a_cc = ConnectedComponents(graph_a,n);
@@ -92,43 +147,7 @@ int main(int argc, char** argv){
             _TIME;
             _NFOUND;
         }
-        int a_d=0, b_d=0;
-        int* m_a = new int[n];
-        int* m_b = new int[n];
-        queue<int> q_a, q_b;
-        int c_node;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                m_a[j]=0;
-                m_b[j]=0;
-            }
-            q_a.push(i);
-            while(!q_a.empty()){
-                c_node = q_a.front();q_a.pop();
-                if(m_a[c_node]>a_d)a_d = m_a[c_node];
-                for(int j=0;j<n;j++){
-                    if(!m_a[j] && graph_a.adjacencyMatrix[c_node][j]){
-                        q_a.push(j);
-                        m_a[j]=m_a[c_node]+1;
-                    }
-                }
-            }
-            q_b.push(i);
-            while(!q_b.empty()){
-                c_node = q_b.front();q_b.pop();
-                if(m_b[c_node]>b_d)b_d = m_b[c_node];
-                for(int j=0;j<n;j++){
-                    if(!m_b[j] && graph_b.adjacencyMatrix[c_node][j]){
-                        q_b.push(j);
-                        m_b[j]=m_b[c_node]+1;
-                    }
-                }
-            }
-        }
-        if(a_d!=b_d){
-            _TIME;
-            _NFOUND;
-        }
+        /**/
     }
 
     /**
