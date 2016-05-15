@@ -22,7 +22,7 @@ clean:
 	@echo " Cleaning...";
 	@$(RM) -r $(BUILDDIR)/*.o $(TARGET)
 
-test:
+test: $(TARGET)
 	@echo " Testing..."
 	node ./tools/test.js ./bin/ism ./tests/
 .PHONY: clean
