@@ -1,0 +1,2 @@
+language: cpp
+before_install: cd c && make test
