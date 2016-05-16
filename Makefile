@@ -1,4 +1,4 @@
-CC := g++
+CC := clang++
 SRCDIR :=./src
 BUILDDIR := ./build
 TARGET := ./bin/ism
@@ -7,7 +7,7 @@ SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name '*.$(SRCEXT)')
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS :=  -g -std=c++11
-CFLAGS += -Ofast -floop-parallelize-all -ftree-loop-if-convert -ftree-parallelize-loops=4 -march=native
+CFLAGS += -Ofast -march=native
 INC := -I$(SRCDIR)
 
 $(TARGET): $(OBJECTS)
