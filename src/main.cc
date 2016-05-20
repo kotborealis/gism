@@ -12,7 +12,7 @@
 #define _FOUND cout<<"YES\n";return 0;
 #define _NFOUND cout<<"NO\n";return 0;
 
-#define _MAX_NODES 16
+#define _MAX_NODES 13
 
 using namespace std;
 
@@ -87,30 +87,24 @@ int main(int argc, char** argv){
             }
         /**/
 
-        /** Paths and cycles **/
+        /** Diametr and cycles **/
         int* m_a = new int[n];
         int* m_b = new int[n];
-        bool* u_a = new bool[n];
-        bool* u_b = new bool[n];
         int d_a=0,d_b=0;
         queue<int> q;
         int c_node;
         bool cycles_a, cycles_b;
         for(int i=0;i<n;i++){
-            for(int i=0;i<n;i++){
-                m_a[i]=0;
-                m_b[i]=0;
-                u_a[i]=false;
-                u_b[i]=false;
+            for(int j=0;j<n;j++){
+                m_a[j]=0;
+                m_b[j]=0;
             }
             q.push(i);
-            u_a[i]=true;
             while(!q.empty()){
                 c_node = q.front();q.pop();
                 if(m_a[c_node]>d_a)d_a=m_a[c_node];
                 for(int j=0;j<n;j++){
-                    if(!u_a[j] && graph_a.adjacencyMatrix[c_node][j]){
-                        u_a[j]=true;
+                    if(!m_a[j] && graph_a.adjacencyMatrix[c_node][j]){
                         q.push(j);
                         m_a[j]=m_a[c_node]+1;
                     }
@@ -118,13 +112,11 @@ int main(int argc, char** argv){
                 }
             }
             q.push(i);
-            u_b[i]=true;
             while(!q.empty()){
                 c_node = q.front();q.pop();
                 if(m_b[c_node]>d_b)d_b=m_b[c_node];
                 for(int j=0;j<n;j++){
-                    if(!u_b[j] && graph_b.adjacencyMatrix[c_node][j]){
-                        u_b[j]=true;
+                    if(!m_b[j] && graph_b.adjacencyMatrix[c_node][j]){
                         q.push(j);
                         m_b[j]=m_b[c_node]+1;
                     }
@@ -137,10 +129,12 @@ int main(int argc, char** argv){
           _TIME;
           _NFOUND;
         }
+        /** if diamters != */
         if(d_a!=d_b){
             _TIME;
             _NFOUND;
         }
+        /**/
 
         /** Connected components **/
         int a_cc = ConnectedComponents(graph_a,n);
