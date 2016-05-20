@@ -1,7 +1,5 @@
 #include <iostream>
-#include <cstdlib>
 #include <time.h>
-#include <cstdint>
 #include <queue>
 #include <algorithm>
 #include "graph.h"
@@ -9,7 +7,7 @@
 #include "equalMatrixUnroll.h"
 
 #define _TIME_DISABLED false
-#define _ENABLE_INVARIANTS_ON 10
+#define _ENABLE_INVARIANTS_ON 0
 #define _TIME if(!_TIME_DISABLED){cout<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"ms\n";}
 #define _FOUND cout<<"YES\n";return 0;
 #define _NFOUND cout<<"NO\n";return 0;
@@ -92,20 +90,27 @@ int main(int argc, char** argv){
         /** Paths and cycles **/
         int* m_a = new int[n];
         int* m_b = new int[n];
-        int* p_a = new int[n*n];
-        int* p_b = new int[n*n];
+        bool* u_a = new bool[n];
+        bool* u_b = new bool[n];
+        int d_a=0,d_b=0;
         queue<int> q;
         int c_node;
         bool cycles_a, cycles_b;
         for(int i=0;i<n;i++){
-            m_a[i]=0;
-            m_b[i]=0;
+            for(int i=0;i<n;i++){
+                m_a[i]=0;
+                m_b[i]=0;
+                u_a[i]=false;
+                u_b[i]=false;
+            }
             q.push(i);
+            u_a[i]=true;
             while(!q.empty()){
                 c_node = q.front();q.pop();
-                p_a[i*n+c_node]=m_a[c_node];
+                if(m_a[c_node]>d_a)d_a=m_a[c_node];
                 for(int j=0;j<n;j++){
-                    if(!m_a[j] && graph_a.adjacencyMatrix[c_node][j]){
+                    if(!u_a[j] && graph_a.adjacencyMatrix[c_node][j]){
+                        u_a[j]=true;
                         q.push(j);
                         m_a[j]=m_a[c_node]+1;
                     }
@@ -113,11 +118,13 @@ int main(int argc, char** argv){
                 }
             }
             q.push(i);
+            u_b[i]=true;
             while(!q.empty()){
                 c_node = q.front();q.pop();
-                p_b[i*n+c_node]=m_b[c_node];
+                if(m_b[c_node]>d_b)d_b=m_b[c_node];
                 for(int j=0;j<n;j++){
-                    if(!m_b[j] && graph_b.adjacencyMatrix[c_node][j]){
+                    if(!u_b[j] && graph_b.adjacencyMatrix[c_node][j]){
+                        u_b[j]=true;
                         q.push(j);
                         m_b[j]=m_b[c_node]+1;
                     }
@@ -130,15 +137,10 @@ int main(int argc, char** argv){
           _TIME;
           _NFOUND;
         }
-        /** check if sorted path all->all equals **/
-        sort(p_a,p_a+n*n);
-        sort(p_b,p_b+n*n);
-        for(int i=0;i<n;i++)
-          if(p_a[i]!=p_b[i]){
+        if(d_a!=d_b){
             _TIME;
             _NFOUND;
-          }
-        /**/
+        }
 
         /** Connected components **/
         int a_cc = ConnectedComponents(graph_a,n);

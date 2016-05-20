@@ -22,7 +22,9 @@ fs.readdirSync(test_dir).map(file=>{
     }
 });
 
-tests_in.sort((a,b)=>a.slice(4,-3)*1>b.slice(4,-3)*1).map(test=>{
+function loop(n){
+    test = tests_in[n];
+    console.log("\033[33m"+test);
     exec(`${bin} < ${test_dir}/${test}`,(code,stdout,stderr)=>{
         var out = stdout.split("\n").slice(0,-1);
         var r = {
@@ -37,5 +39,11 @@ tests_in.sort((a,b)=>a.slice(4,-3)*1>b.slice(4,-3)*1).map(test=>{
         output+=` [${r.time}]`;
         output+="\033[0m";
         console.log(output);
+        if(++n<tests_in.length)
+            setTimeout(()=>loop(n),0);
+        else
+            console.timeEnd("All tests");
     })
-});
+};
+console.time("All tests");
+loop(0);
