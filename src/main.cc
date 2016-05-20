@@ -14,6 +14,8 @@
 
 #define _MAX_NODES 13
 
+#define _INF 9999999
+
 using namespace std;
 
 int ConnectedComponents(Graph g, int n){
@@ -93,7 +95,8 @@ int main(int argc, char** argv){
         int d_a=0,d_b=0;
         queue<int> q;
         int c_node;
-        bool cycles_a, cycles_b;
+        bool cycles_a=false, cycles_b=false;
+        int min_cycle_a=_INF, min_cycle_b=_INF;
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 m_a[j]=0;
@@ -108,7 +111,9 @@ int main(int argc, char** argv){
                         q.push(j);
                         m_a[j]=m_a[c_node]+1;
                     }
-                    cycles_a=m_a[j]>=m_a[c_node];
+                    cycles_a=cycles_a || m_a[j]>=m_a[c_node];
+                    if(m_a[j]>=2 && m_a[j]>=m_a[c_node] && min_cycle_a>m_a[j])
+                    	min_cycle_a=m_a[j];
                 }
             }
             q.push(i);
@@ -120,19 +125,25 @@ int main(int argc, char** argv){
                         q.push(j);
                         m_b[j]=m_b[c_node]+1;
                     }
-                    cycles_b=m_b[j]>=m_b[c_node];
+                    cycles_b=cycles_b || m_b[j]>=m_b[c_node];
+                    if(m_b[j]>=2 && m_b[j]>=m_b[c_node] && min_cycle_b>m_b[j])
+                    	min_cycle_b=m_b[j];
                 }
             }
+        }
+        /** if diamters != */
+        if(d_a!=d_b){
+            _TIME;
+            _NFOUND;
         }
         /** if one have cycle and other dont **/
         if(cycles_b!=cycles_a){
           _TIME;
           _NFOUND;
         }
-        /** if diamters != */
-        if(d_a!=d_b){
-            _TIME;
-            _NFOUND;
+        if(min_cycle_b!=min_cycle_a){
+        	_TIME;
+          	_NFOUND;	
         }
         /**/
 
