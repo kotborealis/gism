@@ -7,6 +7,6 @@ using namespace std;
 
 struct Graph{
     int vertexCount;
-    int** adjacencyMatrix;
+    bool** adjacencyMatrix;
 };
 Graph loadGraph(int n);

@@ -1,19 +1,19 @@
 #pragma once
 
-bool equalMatrixUnroll1(int** a, int**b, int n);
-bool equalMatrixUnroll2(int** a, int**b, int n);
-bool equalMatrixUnroll3(int** a, int**b, int n);
-bool equalMatrixUnroll4(int** a, int**b, int n);
-bool equalMatrixUnroll5(int** a, int**b, int n);
-bool equalMatrixUnroll6(int** a, int**b, int n);
-bool equalMatrixUnroll7(int** a, int**b, int n);
-bool equalMatrixUnroll8(int** a, int**b, int n);
-bool equalMatrixUnroll9(int** a, int**b, int n);
-bool equalMatrixUnroll10(int** a, int**b, int n);
-bool equalMatrixUnroll11(int** a, int**b, int n);
-bool equalMatrixUnroll12(int** a, int**b, int n);
-bool equalMatrixUnroll13(int** a, int**b, int n);
-bool equalMatrixUnrollN(int** a, int**b, int n);
+bool equalMatrixUnroll1(bool** a, bool** b, int n);
+bool equalMatrixUnroll2(bool** a, bool** b, int n);
+bool equalMatrixUnroll3(bool** a, bool** b, int n);
+bool equalMatrixUnroll4(bool** a, bool** b, int n);
+bool equalMatrixUnroll5(bool** a, bool** b, int n);
+bool equalMatrixUnroll6(bool** a, bool** b, int n);
+bool equalMatrixUnroll7(bool** a, bool** b, int n);
+bool equalMatrixUnroll8(bool** a, bool** b, int n);
+bool equalMatrixUnroll9(bool** a, bool** b, int n);
+bool equalMatrixUnroll10(bool** a, bool** b, int n);
+bool equalMatrixUnroll11(bool** a, bool** b, int n);
+bool equalMatrixUnroll12(bool** a, bool** b, int n);
+bool equalMatrixUnroll13(bool** a, bool** b, int n);
+bool equalMatrixUnrollN(bool** a, bool** b, int n);
 
-typedef bool (*equalMatrixUnrollType) (int** a, int** b, int n);
+typedef bool (*equalMatrixUnrollType) (bool** a, bool** b, int n);
 extern equalMatrixUnrollType equalMatrixUnroll[];

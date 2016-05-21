@@ -172,12 +172,23 @@ int main(int argc, char** argv){
     /**
      * Enumerate permutations and permutate matrices
      */
-    int* swap_ptr = NULL;
-    int a,b;
+    bool* swap_ptr;
+    int a;
     for(int i = 0; i<_MAX_NODES; i++)
         idx[i]=0;
     for(int i=0; i<n;) {
         if (idx[i] < i) {
+            /**
+             * Compare adjacency matrix of graph a and graph b
+             */
+            bool equal = equalMatrixUnroll[_n_call](graph_a.adjacencyMatrix,graph_b.adjacencyMatrix,n);
+            /**
+             * If equal===true then graph a and graph b isomorphic
+             */
+            if(equal){
+                _TIME;
+                _FOUND;
+            }
             a = i % 2 * idx[i];
             idx[i]++;
             /**
@@ -193,17 +204,6 @@ int main(int argc, char** argv){
              * Swap collumns
              */
             SwapColsUnroll[_n_call](graph_a.adjacencyMatrix,n,a,i);
-            /**
-             * Compare adjacency matrix of graph a and graph b
-             */
-            bool equal = equalMatrixUnroll[_n_call](graph_a.adjacencyMatrix,graph_b.adjacencyMatrix,n);
-            /**
-             * If equal===true then graph a and graph b isomorphic
-             */
-            if(equal){
-                _TIME;
-                _FOUND;
-            }
             i = 1;
         }
         else

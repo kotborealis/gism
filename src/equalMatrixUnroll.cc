@@ -1,12 +1,12 @@
 #include "equalMatrixUnroll.h"
 
-bool equalMatrixUnroll1(int** a, int**b, int n){return a[0][0]==b[0][0];}
-bool equalMatrixUnroll2(int** a, int**b, int n){
+bool equalMatrixUnroll1(bool** a, bool** b, int n){return a[0][0]==b[0][0];}
+bool equalMatrixUnroll2(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[1][0]==b[1][0] && 
     a[1][1]==b[1][1];}
-bool equalMatrixUnroll3(int** a, int**b, int n){
+bool equalMatrixUnroll3(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -16,7 +16,7 @@ bool equalMatrixUnroll3(int** a, int**b, int n){
     a[2][0]==b[2][0] && 
     a[2][1]==b[2][1] && 
     a[2][2]==b[2][2];}
-bool equalMatrixUnroll4(int** a, int**b, int n){
+bool equalMatrixUnroll4(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -33,7 +33,7 @@ bool equalMatrixUnroll4(int** a, int**b, int n){
     a[3][1]==b[3][1] && 
     a[3][2]==b[3][2] && 
     a[3][3]==b[3][3];}
-bool equalMatrixUnroll5(int** a, int**b, int n){
+bool equalMatrixUnroll5(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -59,7 +59,7 @@ bool equalMatrixUnroll5(int** a, int**b, int n){
     a[4][2]==b[4][2] && 
     a[4][3]==b[4][3] && 
     a[4][4]==b[4][4];}
-bool equalMatrixUnroll6(int** a, int**b, int n){
+bool equalMatrixUnroll6(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -96,7 +96,7 @@ bool equalMatrixUnroll6(int** a, int**b, int n){
     a[5][3]==b[5][3] && 
     a[5][4]==b[5][4] && 
     a[5][5]==b[5][5];}
-bool equalMatrixUnroll7(int** a, int**b, int n){
+bool equalMatrixUnroll7(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -146,7 +146,7 @@ bool equalMatrixUnroll7(int** a, int**b, int n){
     a[6][4]==b[6][4] && 
     a[6][5]==b[6][5] && 
     a[6][6]==b[6][6];}
-bool equalMatrixUnroll8(int** a, int**b, int n){
+bool equalMatrixUnroll8(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -211,7 +211,7 @@ bool equalMatrixUnroll8(int** a, int**b, int n){
     a[7][5]==b[7][5] && 
     a[7][6]==b[7][6] && 
     a[7][7]==b[7][7];}
-bool equalMatrixUnroll9(int** a, int**b, int n){
+bool equalMatrixUnroll9(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -293,7 +293,7 @@ bool equalMatrixUnroll9(int** a, int**b, int n){
     a[8][6]==b[8][6] && 
     a[8][7]==b[8][7] && 
     a[8][8]==b[8][8];}
-bool equalMatrixUnroll10(int** a, int**b, int n){
+bool equalMatrixUnroll10(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -394,7 +394,7 @@ bool equalMatrixUnroll10(int** a, int**b, int n){
     a[9][7]==b[9][7] && 
     a[9][8]==b[9][8] && 
     a[9][9]==b[9][9];}
-bool equalMatrixUnroll11(int** a, int**b, int n){
+bool equalMatrixUnroll11(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -516,7 +516,7 @@ bool equalMatrixUnroll11(int** a, int**b, int n){
     a[10][8]==b[10][8] && 
     a[10][9]==b[10][9] && 
     a[10][10]==b[10][10];}
-bool equalMatrixUnroll12(int** a, int**b, int n){
+bool equalMatrixUnroll12(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -661,7 +661,7 @@ bool equalMatrixUnroll12(int** a, int**b, int n){
     a[11][9]==b[11][9] && 
     a[11][10]==b[11][10] && 
     a[11][11]==b[11][11];}
-bool equalMatrixUnroll13(int** a, int**b, int n){
+bool equalMatrixUnroll13(bool** a, bool** b, int n){
     return a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
@@ -831,7 +831,7 @@ bool equalMatrixUnroll13(int** a, int**b, int n){
     a[12][10]==b[12][10] && 
     a[12][11]==b[12][11] && 
     a[12][12]==b[12][12];}
-bool equalMatrixUnrollN(int** a, int**b, int n){
+bool equalMatrixUnrollN(bool** a, bool** b, int n){
     if(a[0][0]==b[0][0] && 
     a[0][1]==b[0][1] && 
     a[0][2]==b[0][2] && 
