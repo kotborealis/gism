@@ -57,6 +57,18 @@ int main(int argc, char** argv){
     _n_call=n-1>13?13:n-1;
     Graph graph_a = loadGraph(n);
     Graph graph_b = loadGraph(n);
+    
+    /**
+     * Compare adjacency matrix of graph a and graph b
+     */
+    bool equal = equalMatrixUnroll[_n_call](graph_a.adjacencyMatrix,graph_b.adjacencyMatrix,n);
+    /**
+     * If equal===true then graph a and graph b isomorphic
+     */
+    if(equal){
+        _TIME;
+        _FOUND;
+    }
 
     if(n>=_ENABLE_INVARIANTS_ON){
         /** Edges and passport **/
