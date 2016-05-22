@@ -7,12 +7,12 @@
 #include "equalMatrixUnroll.h"
 
 #define _TIME_DISABLED false
-#define _ENABLE_INVARIANTS_ON 0
+#define _ENABLE_INVARIANTS_ON 5
 #define _TIME if(!_TIME_DISABLED){cout<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"ms\n";}
 #define _FOUND cout<<"YES\n";return 0;
 #define _NFOUND cout<<"NO\n";return 0;
 
-#define _MAX_NODES 13
+#define _MAX_NODES 14
 
 #define _INF 9999999
 
@@ -69,7 +69,6 @@ int main(int argc, char** argv){
         _TIME;
         _FOUND;
     }
-
     if(n>=_ENABLE_INVARIANTS_ON){
         /** Edges and passport **/
         int a_edges=0,b_edges=0;
@@ -168,7 +167,6 @@ int main(int argc, char** argv){
         }
         /**/
     }
-
     /**
      * Enumerate permutations and permutate matrices
      */
