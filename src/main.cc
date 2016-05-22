@@ -7,12 +7,12 @@
 #include "equalMatrixUnroll.h"
 
 #define _TIME_DISABLED false
-#define _ENABLE_INVARIANTS_ON 5
+#define _ENABLE_INVARIANTS_ON 0
 #define _TIME if(!_TIME_DISABLED){cout<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"ms\n";}
 #define _FOUND cout<<"YES\n";return 0;
 #define _NFOUND cout<<"NO\n";return 0;
 
-#define _MAX_NODES 14
+#define _MAX_NODES 13
 
 #define _INF 9999999
 
@@ -69,6 +69,7 @@ int main(int argc, char** argv){
         _TIME;
         _FOUND;
     }
+
     if(n>=_ENABLE_INVARIANTS_ON){
         /** Edges and passport **/
         int a_edges=0,b_edges=0;
@@ -167,6 +168,7 @@ int main(int argc, char** argv){
         }
         /**/
     }
+
     /**
      * Enumerate permutations and permutate matrices
      */
@@ -174,39 +176,26 @@ int main(int argc, char** argv){
     int a;
     for(int i = 0; i<_MAX_NODES; i++)
         idx[i]=0;
-    for(int i=0; i<n;) {
+    for(int i=1; i<n;)
         if (idx[i] < i) {
-            /**
-             * Compare adjacency matrix of graph a and graph b
-             */
             bool equal = equalMatrixUnroll[_n_call](graph_a.adjacencyMatrix,graph_b.adjacencyMatrix,n);
-            /**
-             * If equal===true then graph a and graph b isomorphic
-             */
             if(equal){
                 _TIME;
                 _FOUND;
             }
+
             a = i % 2 * idx[i];
             idx[i]++;
-            /**
-             * Permutate matrix a
-             */
-            /**
-             * Swap rows
-             */
+
             swap_ptr = graph_a.adjacencyMatrix[a];
             graph_a.adjacencyMatrix[a] = graph_a.adjacencyMatrix[i];
             graph_a.adjacencyMatrix[i] = swap_ptr;
-            /**
-             * Swap collumns
-             */
+
             SwapColsUnroll[_n_call](graph_a.adjacencyMatrix,n,a,i);
             i = 1;
         }
         else
             idx[i++] = 0;
-    }
     _TIME;
     _NFOUND;
     return 0;
