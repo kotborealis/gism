@@ -174,8 +174,7 @@ int main(int argc, char** argv){
      */
     bool* swap_ptr;
     int a;
-    for(int i = 0; i<_MAX_NODES; i++)
-        idx[i]=0;
+    
     for(int i=1; i<n;)
         if (idx[i] < i) {
             bool equal = equalMatrixUnroll[_n_call](graph_a.adjacencyMatrix,graph_b.adjacencyMatrix,n);
@@ -200,3 +199,4 @@ int main(int argc, char** argv){
     _NFOUND;
     return 0;
 }
+

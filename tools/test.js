@@ -39,7 +39,7 @@ function loop(n){
         var out = stdout.split("\n").slice(0,-1);
         var r = {
             name:test,
-            time:out.length>=2?Number.parseFloat(out[0].slice(0,-2)):-1,
+            time:out.length>=2?Number.parseFloat(out[0].slice(0,-2)):null,
             passed:out.length>=2?out[1]===tests_out[test]:out[0]===tests_out[test]
         };
         if(r.passed)tests_ok.push(test);
@@ -47,6 +47,7 @@ function loop(n){
         var output="";
         output+=r.passed?"\033[32m":"\033[31m";
         output+=r.passed?"OK":"ERROR";
+        if(r.time!==null)
         output+=` [${r.time+'0'.repeat(8).substr(0,8-(r.time+"").length)}]`;
         output+="\033[0m\n";
         process.stdout.write(output);
