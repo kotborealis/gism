@@ -7,8 +7,8 @@
 #define _TIME_DISABLED false
 #define _ENABLE_INVARIANTS_ON 0
 #define _TIME if(!_TIME_DISABLED){cout<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"ms\n";}
-#define _FOUND cout<<"YES\n";return;
-#define _NFOUND cout<<"NO\n";return;
+#define _FOUND cout<<"YES\n";
+#define _NFOUND cout<<"NO\n";
 
 #define _MAX_NODES 13
 
@@ -1456,9 +1456,8 @@ int ConnectedComponents(Graph g, int n){
 
 int idx[_MAX_NODES];
 
-void process(string input_string){
+bool process(string input_string){
     istringstream input(input_string);
-    clock_t tStart = clock();
     int n,_n_call;
     input>>n;
     _n_call=n-1>13?13:n-1;
@@ -1473,8 +1472,7 @@ void process(string input_string){
      * If equal===true then graph a and graph b isomorphic
      */
     if(equal){
-        _TIME;
-        _FOUND;
+        return true;
     }
 
     if(n>=_ENABLE_INVARIANTS_ON){
@@ -1495,16 +1493,14 @@ void process(string input_string){
         }
         /** If graphs have diffrent number of edges **/
         if(a_edges!=b_edges){
-            _TIME;
-            _NFOUND;
+            return false;
         }
         sort(a_passport,a_passport+n);
         sort(b_passport,b_passport+n);
         /** If their passports are not equal **/
         for(int i=0;i<n;i++)
             if(a_passport[i]!=b_passport[i]){
-                _TIME;
-                _NFOUND;
+                return false;
             }
         /**/
 
@@ -1552,17 +1548,14 @@ void process(string input_string){
         }
         /** if diamters != */
         if(d_a!=d_b){
-            _TIME;
-            _NFOUND;
+            return false;
         }
         /** if one have cycle and other dont **/
         if(cycles_b!=cycles_a){
-          _TIME;
-          _NFOUND;
+          return false;
         }
         if(min_cycle_b!=min_cycle_a){
-            _TIME;
-            _NFOUND;    
+            return false;   
         }
         /**/
 
@@ -1570,8 +1563,7 @@ void process(string input_string){
         int a_cc = ConnectedComponents(graph_a,n);
         int b_cc = ConnectedComponents(graph_b,n);
         if(a_cc!=b_cc){
-            _TIME;
-            _NFOUND;
+            return false;
         }
         /**/
     }
@@ -1586,8 +1578,7 @@ void process(string input_string){
         if (idx[i] < i) {
             bool equal = equalMatrixUnroll[_n_call](graph_a.adjacencyMatrix,graph_b.adjacencyMatrix,n);
             if(equal){
-                _TIME;
-                _FOUND;
+                return true;
             }
 
             a = i % 2 * idx[i];
@@ -1602,8 +1593,7 @@ void process(string input_string){
         }
         else
             idx[i++] = 0;
-    _TIME;
-    _NFOUND;
+    return false;
 }
 
 int main(int argc, char** argv){
@@ -1611,7 +1601,15 @@ int main(int argc, char** argv){
     for (std::string line; std::getline(std::cin, line);) {
         buffer += line + "\n";
     }
-    process(buffer);
+    clock_t tStart = clock();
+    if(process(buffer)){
+        _TIME;
+        _FOUND;
+    }
+    else{
+        _TIME;
+        _NFOUND;
+    }
     return 0;
 }
 
