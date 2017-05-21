@@ -2,6 +2,7 @@
 #include <time.h>
 #include <queue>
 #include <algorithm>
+#include <sstream>
 #include "graph.h"
 #include "SwapColsUnroll.h"
 #include "equalMatrixUnroll.h"
@@ -9,8 +10,8 @@
 #define _TIME_DISABLED false
 #define _ENABLE_INVARIANTS_ON 0
 #define _TIME if(!_TIME_DISABLED){cout<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"ms\n";}
-#define _FOUND cout<<"YES\n";return 0;
-#define _NFOUND cout<<"NO\n";return 0;
+#define _FOUND cout<<"YES\n";return;
+#define _NFOUND cout<<"NO\n";return;
 
 #define _MAX_NODES 13
 
@@ -50,13 +51,14 @@ int ConnectedComponents(Graph g, int n){
 
 int idx[_MAX_NODES];
 
-int main(int argc, char** argv){
+void process(string input_string){
+    istringstream input(input_string);
     clock_t tStart = clock();
     int n,_n_call;
-    cin>>n;
+    input>>n;
     _n_call=n-1>13?13:n-1;
-    Graph graph_a = loadGraph(n);
-    Graph graph_b = loadGraph(n);
+    Graph graph_a = loadGraph(n, input);
+    Graph graph_b = loadGraph(n, input);
     
     /**
      * Compare adjacency matrix of graph a and graph b
@@ -125,7 +127,7 @@ int main(int argc, char** argv){
                     }
                     cycles_a=cycles_a || m_a[j]>=m_a[c_node];
                     if(m_a[j]>=2 && m_a[j]>=m_a[c_node] && min_cycle_a>m_a[j])
-                    	min_cycle_a=m_a[j];
+                        min_cycle_a=m_a[j];
                 }
             }
             q.push(i);
@@ -139,7 +141,7 @@ int main(int argc, char** argv){
                     }
                     cycles_b=cycles_b || m_b[j]>=m_b[c_node];
                     if(m_b[j]>=2 && m_b[j]>=m_b[c_node] && min_cycle_b>m_b[j])
-                    	min_cycle_b=m_b[j];
+                        min_cycle_b=m_b[j];
                 }
             }
         }
@@ -154,8 +156,8 @@ int main(int argc, char** argv){
           _NFOUND;
         }
         if(min_cycle_b!=min_cycle_a){
-        	_TIME;
-          	_NFOUND;	
+            _TIME;
+            _NFOUND;    
         }
         /**/
 
@@ -197,6 +199,14 @@ int main(int argc, char** argv){
             idx[i++] = 0;
     _TIME;
     _NFOUND;
+}
+
+int main(int argc, char** argv){
+    string buffer;
+    for (std::string line; std::getline(std::cin, line);) {
+        buffer += line + "\n";
+    }
+    process(buffer);
     return 0;
 }
 

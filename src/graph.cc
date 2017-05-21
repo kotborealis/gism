@@ -1,6 +1,6 @@
 #include "graph.h"
 
-Graph loadGraph(int n){
+Graph loadGraph(int n, istringstream& input){
     Graph graph;
 
     graph.vertexCount=n;
@@ -9,7 +9,7 @@ Graph loadGraph(int n){
     bool buf;
     int row_counter=0,col_counter=0,c=0;
     graph.adjacencyMatrix[row_counter]=new bool[graph.vertexCount];
-    while(c++<n*n && cin>>buf){
+    while(c++<n*n && input >> buf){
         if(col_counter==graph.vertexCount){
             col_counter=0;
             row_counter++;
