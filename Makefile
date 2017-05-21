@@ -1,10 +1,10 @@
-CC = clang++
+CC = g++
 SRCDIR =./src
 BUILDDIR = ./build
 TARGET = ./bin/ism
 
 SRCEXT = cc
-SOURCES = $(shell find $(SRCDIR) -type f -name '*.$(SRCEXT)')
+SOURCES = $(shell find $(SRCDIR) -type f -name "*.$(SRCEXT)")
 OBJECTS = $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS =  -std=c++11 -Wall
 CFLAGS += -O3 -march=native
@@ -26,5 +26,5 @@ clean:
 
 test: $(TARGET)
 	@echo " Testing..."
-	node ./tools/test.js ./bin/ism ./tests/
+	node ./tools/test.js bin\ism ./tests/
 .PHONY: clean
