@@ -7,6 +7,7 @@
   </head>
   <body>
   <script>
+    const out = document.getElementsByClassName('out')[0];
     // const list_in = ["test1.in","test2.in","test3.in","test4.in","test5.in","test6.in","test7.in","test_a0.in","test_a10.in","test_a11.in","test_a12.in","test_a13.in","test_a14.in","test_a15.in","test_a16.in","test_a17.in","test_a18.in","test_a19.in","test_a1.in","test_a20.in","test_a2.in","test_b0.in","test_b10.in","test_b11.in","test_b12.in","test_b13.in","test_b14.in","test_b15.in","test_b16.in","test_b17.in","test_b18.in","test_b19.in","test_b1.in","test_b20.in","test_b21.in","test_b22.in","test_b23.in","test_b24.in","test_b25.in","test_b26.in","test_b27.in","test_b28.in","test_b29.in","test_b2.in","test_b30.in","test_b31.in","test_b32.in","test_b33.in","test_b34.in","test_b35.in","test_b36.in","test_b3.in","test_b4.in","test_b5.in","test_b6.in","test_b7.in","test_b8.in","test_b9.in"];
     // const list_out = ["test1.out","test2.out","test3.out","test4.out","test5.out","test6.out","test7.out","test_a0.out","test_a10.out","test_a11.out","test_a12.out","test_a13.out","test_a14.out","test_a15.out","test_a16.out","test_a17.out","test_a18.out","test_a19.out","test_a1.out","test_a20.out","test_a2.out","test_b0.out","test_b10.out","test_b11.out","test_b12.out","test_b13.out","test_b14.out","test_b15.out","test_b16.out","test_b17.out","test_b18.out","test_b19.out","test_b1.out","test_b20.out","test_b21.out","test_b22.out","test_b23.out","test_b24.out","test_b25.out","test_b26.out","test_b27.out","test_b28.out","test_b29.out","test_b2.out","test_b30.out","test_b31.out","test_b32.out","test_b33.out","test_b34.out","test_b35.out","test_b36.out","test_b3.out","test_b4.out","test_b5.out","test_b6.out","test_b7.out","test_b8.out","test_b9.out"];
     const list_in = ["test1.in","test2.in","test3.in","test4.in","test5.in"];
@@ -17,25 +18,29 @@
     };
 
     const loop = async (n) => {
+      let buf = '';
+
       if(!list_in[n]){
         return;
       }
 
-      
       const in_data = (await (await fetch(`./tests/${list_in[n]}`)).text()).trim();
       const out_data = (await (await fetch(`./tests/${list_out[n]}`)).text()).trim();
 
       const expected = out_data === "YES";
 
-      console.time(list_in[n]);
+      const startTime = Date.now();
       const res = Module.process(in_data);
-      console.timeEnd(list_in[n]);
-      if(res === expected){
-        console.log("OK");
-      }
-      else{
-        console.error("FAILED");
-      }
+      const time = Date.now() - startTime;
+
+      const passed = expected === res;
+
+      buf += `<font color="${passed ? 'green' : 'red'}">`;
+      buf += passed ? 'OK' : 'ERROR';
+      buf += `[${time}]`;
+      buf += `</font><br/>`;
+
+      out.innerHTML += buf;
 
       loop(n+1);
     };
