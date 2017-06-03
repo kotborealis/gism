@@ -1,7 +1,3 @@
-# GISM
-
-Small tool for graph isomorphism problem.
-
 ## Dependencies
 
 Install emsdk portable https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html
