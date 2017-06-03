@@ -26,5 +26,9 @@ clean:
 
 test: $(TARGET)
 	@echo " Testing..."
-	node ./tools/test.js bin\ism ./tests/
+	node ./tools/test.js bin/ism ./tests/
+
+wasm:
+	@echo " Building wasm..."
+	emcc src/main.cc -s WASM=1 -o index.html -O3 --bind --shell-file src/shell.html
 .PHONY: clean

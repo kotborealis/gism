@@ -3,6 +3,7 @@
 #include <queue>
 #include <algorithm>
 #include <sstream>
+#include <emscripten/bind.h>
 
 #define _TIME_DISABLED false
 #define _ENABLE_INVARIANTS_ON 0
@@ -15,6 +16,7 @@
 #define _INF 9999999
 
 using namespace std;
+using namespace emscripten;
 
 struct Graph{
     int vertexCount;
@@ -1596,20 +1598,12 @@ bool process(string input_string){
     return false;
 }
 
+EMSCRIPTEN_BINDINGS(my_module) {
+    emscripten::function("process", &process);
+}
+
 int main(int argc, char** argv){
-    string buffer;
-    for (std::string line; std::getline(std::cin, line);) {
-        buffer += line + "\n";
-    }
-    clock_t tStart = clock();
-    if(process(buffer)){
-        _TIME;
-        _FOUND;
-    }
-    else{
-        _TIME;
-        _NFOUND;
-    }
+    // YOU ARE TEARING ME APART
     return 0;
 }
 
