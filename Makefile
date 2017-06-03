@@ -30,5 +30,5 @@ test: $(TARGET)
 
 wasm:
 	@echo " Building wasm..."
-	emcc src/main.cc -s WASM=1 -o index.html -O3 --bind --shell-file src/shell.html
+	emcc src/main.cc -s WASM=1 -o index.js -O3 --bind
 .PHONY: clean
