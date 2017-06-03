@@ -1,3 +1,1 @@
-# GISM
-
-Small tool for graph isomorphism problem.
+Oh, it's *you*.
